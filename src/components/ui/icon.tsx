@@ -5,7 +5,7 @@ interface IconProps extends React.SVGProps<SVGSVGElement> {
   size?: number;
 }
 
-export function Icon({ name, size = 5, ...props }: IconProps) {
+export function Icon({ name, size = 20, ...props }: IconProps) {
   const IconComponent = icons[name];
   if (!IconComponent) {
     return null;
@@ -14,7 +14,7 @@ export function Icon({ name, size = 5, ...props }: IconProps) {
     <IconComponent
       width={size}
       height={size}
-      className={`size-${size}`}
+      className={`size-${size}px`}
       {...props}
     />
   );

@@ -45,12 +45,12 @@ export function AppSidebar() {
   );
 
   return (
-    <Sidebar variant='sidebar' collapsible='icon'>
+    <Sidebar side='left' variant='sidebar' collapsible='icon'>
       <SidebarHeader>
         <SidebarMenu>
-          <SidebarMenuItem>
+          <SidebarMenuItem className='p-1'>
             <SidebarMenuButton size='lg' asChild>
-              <div className='flex items-center py-1 gap-2'>
+              <div className='flex items-center gap-2'>
                 <Avatar className='h-6 w-6'>
                   <AvatarImage src={user.avatarUrl.src} alt={user.name} />
                   <AvatarFallback>{user.initials}</AvatarFallback>
@@ -150,7 +150,6 @@ export function AppSidebar() {
           </SidebarGroup>
         ))}
       </SidebarContent>
-      <SidebarRail />
     </Sidebar>
   );
 }

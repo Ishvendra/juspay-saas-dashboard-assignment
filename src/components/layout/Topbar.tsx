@@ -81,7 +81,7 @@ export function Topbar({
     >
       <div className='flex h-17 w-full items-center px-7 py-5 max-[768px]:px-2 py-0'>
         <div className='flex items-center gap-2 flex-1 min-w-0'>
-          <SidebarTrigger />
+          <SidebarTrigger side='left' />
           <IconButton iconName='star' />
 
           <Breadcrumb className='hidden sm:flex px-2'>
@@ -122,7 +122,7 @@ export function Topbar({
           <ThemeToggle />
           <IconButton iconName='clock' />
           <IconButton iconName='bell' />
-          <SidebarTrigger />
+          <SidebarTrigger side='right' />
         </div>
         {showMobileSearch && (
           <div className='fixed inset-0 z-50 bg-background/90 backdrop-blur-sm min-[480px]:hidden'>
