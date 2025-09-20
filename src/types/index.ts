@@ -1,13 +1,13 @@
-import { icons } from '@/components/ui/icon';
+import { IconName } from '@/components/icons';
 
-export interface LinkItem {
-  href: string;
+export type NavLink = {
+  href?: string;
   label: string;
-  icon?: keyof typeof icons;
-}
+  icon?: IconName;
+  subLinks?: NavLink[];
+};
 
-export interface NavSection {
+export type NavSection = {
   title: string;
-  isCollapsible?: boolean;
-  links: LinkItem[];
-}
+  links: NavLink[];
+};

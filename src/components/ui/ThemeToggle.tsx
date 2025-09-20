@@ -22,7 +22,7 @@ export function ThemeToggle() {
       variant='ghost'
       size='icon'
       aria-label='Toggle Theme'
-      className='icon-wrapper'
+      className='icon-wrapper w-7 h-7'
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
     >
       {theme === 'light' ? <Icon name='moon' /> : <Icon name='sun' />}

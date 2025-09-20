@@ -2,7 +2,11 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import './globals.css';
-import { Sidebar } from '@/components/dashboard/Sidebar';
+import { AppSidebar } from '@/components/layout/AppSidebar';
+import { UserProvider } from '@/components/providers/user-provider';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { Topbar } from '@/components/layout/Topbar';
+import { RightSidebar } from '@/components/layout/RightSidebar';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -20,20 +24,48 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const scrollContent = Array.from({ length: 50 }, (_, i) => (
+    <div key={i} className='p-4 border-b'>
+      <h3 className='font-semibold'>Content Block {i + 1}</h3>
+      <p className='text-muted-foreground'>
+        This is some sample content to demonstrate the scrolling blur effect.
+        Scroll down to see the topbar background blur.
+      </p>
+    </div>
+  ));
+
   return (
     <html lang='en' suppressHydrationWarning>
       <body
         className={`${inter.variable} font-sans antialiased bg-background text-foreground`}
       >
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Sidebar />
-          {children}
-        </ThemeProvider>
+        <UserProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SidebarProvider>
+              <AppSidebar />
+              <div className='min-h-screen w-full'>
+                <Topbar />
+                <main className='container mx-auto'>
+                  <div className='p-6'>
+                    <h1 className='text-3xl font-bold mb-4'>Topbar Demo</h1>
+                    <p className='text-muted-foreground mb-8'>
+                      Scroll down to see the blur effect. Try the search with
+                      Cmd/Ctrl+K shortcut!
+                    </p>
+                  </div>
+                  {scrollContent}
+                </main>
+                {children}
+              </div>
+              <RightSidebar />
+            </SidebarProvider>
+          </ThemeProvider>
+        </UserProvider>
       </body>
     </html>
   );
