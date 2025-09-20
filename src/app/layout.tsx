@@ -2,11 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import './globals.css';
-import { AppSidebar } from '@/components/layout/AppSidebar';
 import { UserProvider } from '@/components/providers/user-provider';
-import { SidebarProvider } from '@/components/ui/sidebar';
-import { Topbar } from '@/components/layout/Topbar';
-import { RightSidebar } from '@/components/layout/RightSidebar';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -36,15 +32,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <SidebarProvider defaultOpen={true} defaultRightOpen={true}>
-              <AppSidebar />
-              <div className='min-h-screen w-full'>
-                <Topbar />
-
-                {children}
-              </div>
-              <RightSidebar />
-            </SidebarProvider>
+            {children}
           </ThemeProvider>
         </UserProvider>
       </body>

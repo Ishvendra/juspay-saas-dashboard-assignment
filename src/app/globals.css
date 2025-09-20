@@ -25,7 +25,7 @@
     --primary-purple-50: #f2f5fa;
     --primary-light: #f7f9fb;
 
-    --secondary-purple-a: #95a4fc;
+    --secondary-purple-a: #0a8bfd;
     --secondary-purple-b: #c6c7f8;
     --secondary-blue-a: #a8c5da;
     --secondary-blue-b: #b1e3ff;
@@ -65,6 +65,7 @@
     --white-10: #e8e8e8;
     --white-5: #f3f3f3;
 
+    --secondary-purple-a: #95a4fc;
     --primary-brand: var(--secondary-purple-b);
     --primary-blue: #e3f5ff;
     --primary-purple: #e5ecf6;
@@ -110,6 +111,12 @@
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 
+  --color-primary-blue: var(--primary-blue);
+  --color-secondary-purple-a: var(--secondary-purple-a);
+  --color-secondary-blue-a: var(--secondary-blue-a);
+  --color-secondary-green-a: var(--secondary-green-a);
+  --color-secondary-yellow: var(--secondary-yellow);
+  --color-secondary-red: var(--secondary-red);
   --color-primary-blue: var(--primary-blue);
   --color-primary-blue-dark: var(--primary-blue-dark);
   --color-primary-blue-light: var(--primary-blue-light);
@@ -212,6 +219,30 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--black-20);
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--black-40);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--black-40) transparent;
 }
 
 .icon-wrapper svg {

@@ -28,12 +28,11 @@ import { Icon } from './icon';
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 const SIDEBAR_WIDTH = '13.25rem';
-const SIDEBAR_WIDTH_RIGHT = '17.5rem';
+const SIDEBAR_WIDTH_RIGHT = '18rem';
 const SIDEBAR_WIDTH_MOBILE = '18rem';
 const SIDEBAR_WIDTH_ICON = '3rem';
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
-// Enhanced context to support multiple sidebars
 type SidebarContextProps = {
   // Left sidebar state
   state: 'expanded' | 'collapsed';
@@ -51,7 +50,6 @@ type SidebarContextProps = {
   setRightOpenMobile: (open: boolean) => void;
   toggleRightSidebar: () => void;
 
-  // Shared state
   isTablet: boolean;
 };
 
@@ -151,12 +149,8 @@ function SidebarProvider({
         event.preventDefault();
         toggleSidebar();
       }
-      // Ctrl/Cmd + Shift + B for right sidebar
-      if (
-        event.key === SIDEBAR_KEYBOARD_SHORTCUT &&
-        (event.metaKey || event.ctrlKey) &&
-        event.shiftKey
-      ) {
+      // Alt + B for right sidebar
+      if (event.key === SIDEBAR_KEYBOARD_SHORTCUT && event.altKey) {
         event.preventDefault();
         toggleRightSidebar();
       }
@@ -432,7 +426,6 @@ function SidebarRail({
   );
 }
 
-// Hook to get specific sidebar state
 function useSidebarState(side: 'left' | 'right' = 'left') {
   const context = useSidebar();
 
@@ -459,7 +452,6 @@ function useSidebarState(side: 'left' | 'right' = 'left') {
   };
 }
 
-// Keep all other components the same but add side awareness where needed
 function SidebarInset({ className, ...props }: React.ComponentProps<'main'>) {
   return (
     <main

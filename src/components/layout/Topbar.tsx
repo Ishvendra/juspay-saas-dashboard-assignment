@@ -2,21 +2,13 @@
 
 import { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { cn } from '@/lib/utils';
-import Link from 'next/link';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import { useScrolled } from '@/hooks/use-scrolled';
 import { SearchBar } from '@/components/common/search-bar';
 import { IconButton } from '../ui/icon-button';
+import { BreadcrumbNav } from '../common/breadcrumb-nav';
 
 interface TopbarProps {
   breadcrumbs?: Array<{
@@ -32,18 +24,7 @@ interface TopbarProps {
   className?: string;
 }
 
-export function Topbar({
-  breadcrumbs = [
-    { label: 'Dashboard', href: '/dashboard' },
-    { label: 'Analytics' },
-  ],
-  user = {
-    name: 'John Doe',
-    email: 'john@example.com',
-    initials: 'JD',
-  },
-  className,
-}: TopbarProps) {
+export function Topbar({ className }: TopbarProps) {
   const isScrolled = useScrolled(10);
   const [searchQuery, setSearchQuery] = useState('');
   const [showMobileSearch, setShowMobileSearch] = useState(false);
@@ -60,13 +41,10 @@ export function Topbar({
     .slice(0, 5);
 
   const handleSearch = useCallback((query: string) => {
-    console.log('Searching for:', query);
     setSearchQuery(query);
-    // Implement your search logic here
   }, []);
 
   const handleSearchClear = useCallback(() => {
-    console.log('Search cleared');
     setSearchQuery('');
   }, []);
 
@@ -84,24 +62,7 @@ export function Topbar({
           <SidebarTrigger side='left' />
           <IconButton iconName='star' />
 
-          <Breadcrumb className='hidden sm:flex px-2'>
-            <BreadcrumbList>
-              {breadcrumbs.map((crumb, index) => (
-                <div key={crumb.label} className='flex items-center'>
-                  {index > 0 && <BreadcrumbSeparator className='mr-2' />}
-                  <BreadcrumbItem>
-                    {crumb.href ? (
-                      <BreadcrumbLink asChild>
-                        <Link href={crumb.href}>{crumb.label}</Link>
-                      </BreadcrumbLink>
-                    ) : (
-                      <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
-                    )}
-                  </BreadcrumbItem>
-                </div>
-              ))}
-            </BreadcrumbList>
-          </Breadcrumb>
+          <BreadcrumbNav />
         </div>
 
         <div className='flex items-center gap-2 flex-none'>
