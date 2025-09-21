@@ -18,6 +18,18 @@ interface SearchBarProps {
   showCloseIcon?: boolean;
 }
 
+/**
+ * A comprehensive, reusable search bar component.
+ * Features include debounced search, keyboard shortcuts (Ctrl+/), suggestions with keyboard navigation, and loading/clear states.
+ * @param placeholder - The placeholder text for the input field.
+ * @param className - Optional classes to apply to the root container.
+ * @param onSearch - Callback function triggered with the debounced search query.
+ * @param onClear - Callback function triggered when the search is cleared.
+ * @param suggestions - An array of strings to display as search suggestions.
+ * @param loading - If true, displays a loading spinner.
+ * @param showCloseIcon - If true, shows a close icon to clear the input.
+ * @returns A fully functional search bar component.
+ */
 export function SearchBar({
   placeholder = 'Search',
   className,
@@ -42,16 +54,13 @@ export function SearchBar({
     }
   }, [debouncedQuery, onSearch]);
 
-  // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Cmd/Ctrl + K to focus search
       if ((e.metaKey || e.ctrlKey) && e.key === '/') {
         e.preventDefault();
         inputRef.current?.focus();
       }
 
-      // Escape to clear and blur
       if (e.key === 'Escape') {
         if (query) {
           handleClear();
@@ -66,7 +75,6 @@ export function SearchBar({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [query]);
 
-  // Handle input change
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
@@ -77,7 +85,6 @@ export function SearchBar({
     [suggestions.length]
   );
 
-  // Handle clear
   const handleClear = useCallback(() => {
     setQuery('');
     setShowSuggestions(false);
@@ -86,7 +93,6 @@ export function SearchBar({
     inputRef.current?.focus();
   }, [onClear]);
 
-  // Handle suggestion selection
   const handleSuggestionSelect = useCallback(
     (suggestion: string) => {
       setQuery(suggestion);
@@ -157,7 +163,6 @@ export function SearchBar({
           }}
           onBlur={() => {
             setIsFocused(false);
-            // Delay hiding suggestions to allow for clicks
             setTimeout(() => setShowSuggestions(false), 150);
           }}
           className={cn(
@@ -170,7 +175,6 @@ export function SearchBar({
           )}
         />
 
-        {/* Right side icons */}
         <div className='absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1'>
           {loading && (
             <div className='h-4 w-4 animate-spin rounded-full border-2 border-muted-foreground border-t-primary' />
@@ -196,7 +200,6 @@ export function SearchBar({
         </div>
       </div>
 
-      {/* Suggestions Dropdown */}
       {showSuggestions && suggestions.length > 0 && (
         <div
           ref={suggestionsRef}

@@ -2,6 +2,12 @@ import { OrderStatus } from '@/types';
 import { cn } from '@/lib/utils';
 import { Icon } from '../ui/icon';
 
+/**
+ * A badge component for displaying the status of an order.
+ * It shows a colored dot and text corresponding to the given status.
+ * @param status - The status of the order ('In Progress', 'Complete', etc.).
+ * @returns A styled span element with an icon and the status text.
+ */
 export function OrderStatusBadge({ status }: { status: OrderStatus }) {
   const color = {
     'In Progress': 'text-secondary-indigo',

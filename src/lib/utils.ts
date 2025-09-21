@@ -40,6 +40,10 @@ export function truncateText(text: unknown, limit: number = 25): string {
   return text.slice(0, limit) + '...';
 }
 
+/**
+ * A pre-configured Intl.NumberFormat instance for formatting numbers as USD currency.
+ * e.g., 1234.56 -> "$1,234.56"
+ */
 export const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',

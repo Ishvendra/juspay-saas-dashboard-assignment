@@ -9,6 +9,10 @@ import { notificationIcons } from '@/assets/images';
 import { motion } from 'framer-motion';
 import { Skeleton } from '@/components/ui/skeleton';
 
+/**
+ * A skeleton component that mimics the layout of an InfoListItem.
+ * @returns A placeholder UI for a list item.
+ */
 function InfoListItemSkeleton() {
   return (
     <div className='flex items-start gap-2 relative p-1'>
@@ -28,6 +32,15 @@ interface InfoListProps {
   isLoading?: boolean;
 }
 
+/**
+ * A versatile list component for displaying notifications, activities, or contacts.
+ * It handles different variants for styling and includes loading states and animations.
+ * @param title - The title of the list section.
+ * @param items - An array of data objects to render in the list.
+ * @param variant - The visual variant ('notifications', 'activities', 'contacts') which controls styling.
+ * @param isLoading - If true, displays skeleton loaders instead of the list items.
+ * @returns A styled card containing a list of items.
+ */
 export function InfoList({ title, items, variant, isLoading }: InfoListProps) {
   const showLine = variant === 'activities';
   const showTimestamp = variant === 'notifications' || variant === 'activities';
