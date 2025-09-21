@@ -4,6 +4,18 @@ This project is a pixel-perfect implementation of a modern SaaS dashboard, built
 
 ---
 
+### Table of Contents
+
+1.  [Live Demo & Video Walkthrough](#-live-demo--video-walkthrough)
+2.  [Features](#-features)
+3.  [Tech Stack & Architectural Decisions](#️-tech-stack--architectural-decisions)
+4.  [Getting Started](#-getting-started)
+5.  [Challenges & Solutions](#-challenges--solutions)
+6.  [Accessibility Features](#-accessibility-features)
+7.  [Known Limitations & Future Improvements](#-known-limitations--future-improvements)
+
+---
+
 ### **▶️ Live Demo & Video Walkthrough**
 
 - **Live Application:** [https://juspay-saas-dashboard-assignment.vercel.app/]
@@ -96,16 +108,94 @@ src/
 └── types/              # TypeScript type definitions
 ```
 
-### **🧠 Challenges & Solutions**
+---
 
-During development, several challenges were addressed with specific solutions:
+### 🎨 Theme & Styling
 
-- **Challenge**: The custom SVG icons provided in the Figma file were not directly importable as React components in Next.js.
+The application's theme was built from the ground up to match the provided Figma design specifications. All colors for both light and dark mode are defined as CSS variables in `src/app/globals.css` and mapped to the `shadcn/ui` component theme, ensuring consistency across the entire UI.
 
-  - **Solution**: I created a manual component for each of the 13 icons, wrapping the SVG code in a React component. This bypassed build tool complexity and created a stable, explicit icon system.
+<details>
+<summary>Click to view the full <strong>globals.css</strong> theme file</summary>
 
-- **Challenge**: Implementing a breadcrumb system that was decoupled from the URL structure (due to the use of clean URLs via Next.js Route Groups).
-  - **Solution**: I initially tried a URL-based approach, but quickly identified its limitations. I pivoted to a more robust, context-based system. Each page now provides its breadcrumb data to a shared context, which the header component consumes.
+```css
+@import 'tw-animate-css';
+@import 'tailwindcss';
+
+@layer base {
+  :root {
+    --radius: 0.625rem;
+
+    /* Black Scale */
+    --black-100: #1c1c1c;
+    --black-80: #494949;
+    --black-40: #a4a4a4;
+    --black-20: #d2d2d2;
+    --black-10: #e8e8e8;
+    --black-5: #f3f3f3;
+
+    /* Primary Scale */
+    --primary-brand: #1c1c1c;
+    --primary-blue: #e3f5ff;
+    --primary-purple: #e5ecf6;
+    --primary-purple-50: #f2f5fa;
+    --primary-light: #f7f9fb;
+
+    /* Secondary Scale */
+    --secondary-purple-b: #c6c7f8;
+    --secondary-red: #ff4747;
+
+    /* Mapping to shadcn/ui variables for Light Mode */
+    --background: #ffffff;
+    --foreground: var(--black-100);
+    --card: #ffffff;
+    --card-foreground: var(--black-100);
+    --popover: #ffffff;
+    --popover-foreground: var(--black-100);
+    --primary: var(--primary-brand);
+    --primary-foreground: #ffffff;
+    --secondary: var(--primary-light);
+    --secondary-foreground: var(--black-100);
+    --muted: var(--black-5);
+    --muted-foreground: var(--black-40);
+    --accent: var(--primary-purple-50);
+    --accent-foreground: var(--black-100);
+    --destructive: var(--secondary-red);
+    --border: var(--black-10);
+    --input: var(--black-10);
+    --ring: var(--black-80);
+    --card-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .dark {
+    /* Mapping to shadcn/ui variables for Dark Mode */
+    --background: #1c1c1c;
+    --foreground: #f3f3f3;
+    --primary: var(--secondary-purple-b);
+    --primary-foreground: #1c1c1c;
+    --secondary: #494949;
+    --secondary-foreground: #f3f3f3;
+    --muted: #494949;
+    --muted-foreground: #a4a4a4;
+    --accent: #494949;
+    --accent-foreground: #f3f3f3;
+    --destructive: var(--secondary-red);
+    --border: #494949;
+    --input: #494949;
+    --ring: #a4a4a4;
+    --card-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  * {
+    @apply border-border;
+  }
+}
+```
+
+</details>
 
 ---
 
@@ -116,6 +206,19 @@ During development, several challenges were addressed with specific solutions:
   - Toggle Left Sidebar: `Ctrl + B`
   - Toggle Right Sidebar: `Alt + B`
   - Focus Search Bar: `Ctrl + /`
+
+---
+
+### **🧠 Challenges & Solutions**
+
+During development, several challenges were addressed with specific solutions:
+
+- **Challenge**: The custom SVG icons provided in the Figma file were not directly importable as React components in Next.js.
+
+  - **Solution**: I created a manual component for each of the 13 icons, wrapping the SVG code in a React component. This bypassed build tool complexity and created a stable, explicit icon system.
+
+- **Challenge**: Implementing a breadcrumb system that was decoupled from the URL structure (due to the use of clean URLs via Next.js Route Groups).
+  - **Solution**: I initially tried a URL-based approach, but quickly identified its limitations. I pivoted to a more more direct, config-driven approach suitable for the project's scope. I created a central configuration file (breadcrumb-config.ts) to map URL paths to their specific breadcrumb trails. A dedicated `BreadcrumbNav` component then uses the current pathname to look up and dynamically render the correct breadcrumbs.
 
 ---
 
