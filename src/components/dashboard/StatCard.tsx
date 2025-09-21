@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Icon } from '@/components/ui/icon';
 import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 interface StatCardProps {
   title: string;
@@ -39,22 +40,32 @@ export function StatCard({
   }
 
   return (
-    <Card className={cn('max-sm:p-2 p-6 ', 'border-none rounded-2xl', bgColor)}>
-      <div className='flex flex-col justify-between h-full gap-2'>
-        <div>
-          <p className={cn('text-sm font-semibold', textColor)}>{title}</p>
-        </div>
-        <div className='flex justify-between items-center'>
-          <p className={cn('text-2xl font-semibold', textColor)}>{value}</p>
-          <div className={cn('flex items-center gap-1 text-xs font-normal')}>
-            <span className={cn(textColor)}>{change}%</span>
-            <Icon
-              name={isPositive ? 'arrowRise' : 'arrowFall'}
-              className={cn('h-4 w-4', textColor)}
-            />
+    <motion.div
+      whileHover={{
+        borderRadius: 16,
+        boxShadow: 'var(--card-shadow)',
+      }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    >
+      <Card
+        className={cn('max-sm:p-2 p-6 ', 'border-none rounded-2xl', bgColor)}
+      >
+        <div className='flex flex-col justify-between h-full gap-2'>
+          <div>
+            <p className={cn('text-sm font-semibold', textColor)}>{title}</p>
+          </div>
+          <div className='flex justify-between items-center'>
+            <p className={cn('text-2xl font-semibold', textColor)}>{value}</p>
+            <div className={cn('flex items-center gap-1 text-xs font-normal')}>
+              <span className={cn(textColor)}>{change}%</span>
+              <Icon
+                name={isPositive ? 'arrowRise' : 'arrowFall'}
+                className={cn('h-4 w-4', textColor)}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </motion.div>
   );
 }

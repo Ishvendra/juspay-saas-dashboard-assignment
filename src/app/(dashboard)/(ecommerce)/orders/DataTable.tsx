@@ -1,12 +1,18 @@
 'use client';
 
+import { useState } from 'react';
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
+  SortingState,
+  ColumnFiltersState,
   useReactTable,
 } from '@tanstack/react-table';
+
 import {
   Table,
   TableBody,
@@ -15,9 +21,35 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
-import { Icon } from '@/components/ui/icon';
+import { IconButton } from '@/components/ui/icon-button';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
+import { SearchInput } from '@/components/dashboard/TableSearch';
+import { Button } from '@/components/ui/button';
+import { OrderStatus } from '@/types';
+
+const statuses: OrderStatus[] = [
+  'In Progress',
+  'Complete',
+  'Pending',
+  'Approved',
+  'Rejected',
+];
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -28,41 +60,96 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [globalFilter, setGlobalFilter] = useState('');
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
+    state: {
+      sorting,
+      columnFilters,
+      globalFilter,
+    },
   });
+  const hasActiveFilters =
+    (columnFilters.length > 0 &&
+      Array.isArray(columnFilters[0]?.value) &&
+      columnFilters[0].value.length > 0) ||
+    globalFilter.length > 0;
 
   return (
-    <div>
-      <div className='flex items-center p-2'>
+    <div className='flex flex-col gap-3'>
+      <div className='flex items-center p-2 bg-primary-light rounded-lg'>
         <div className='flex items-center gap-2'>
-          <Button variant='outline' size='sm'>
-            <Icon name='add' className='h-4 w-4 mr-2' /> Add
-          </Button>
-          <Button variant='outline' size='sm'>
-            <Icon name='filter' className='h-4 w-4 mr-2' /> Filter
-          </Button>
-          <Button variant='outline' size='sm'>
-            <Icon name='sort' className='h-4 w-4 mr-2' /> Sort
-          </Button>
+          <IconButton iconName='add' />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div>
+                <IconButton iconName='filter' />
+
+                {hasActiveFilters && (
+                  <span className='ml-1 rounded-full bg-primary text-primary-foreground text-xs px-1.5 py-0.5'>
+                    {(Array.isArray(columnFilters?.[0]?.value)
+                      ? columnFilters[0].value.length
+                      : 0) + (globalFilter ? 1 : 0)}
+                  </span>
+                )}
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align='start'
+              className='w-[200px] bg-white-100'
+            >
+              <DropdownMenuLabel>Filter Status</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {statuses.map((status) => (
+                <DropdownMenuCheckboxItem
+                  key={status}
+                  className='capitalize'
+                  checked={
+                    (
+                      table.getColumn('status')?.getFilterValue() as string[]
+                    )?.includes(status) ?? false
+                  }
+                  onCheckedChange={(checked) => {
+                    const currentFilter =
+                      (table
+                        .getColumn('status')
+                        ?.getFilterValue() as string[]) || [];
+                    const newFilter = checked
+                      ? [...currentFilter, status]
+                      : currentFilter.filter((s) => s !== status);
+
+                    table
+                      .getColumn('status')
+                      ?.setFilterValue(
+                        newFilter.length ? newFilter : undefined
+                      );
+                  }}
+                >
+                  {status}
+                </DropdownMenuCheckboxItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <IconButton iconName='sort' />
         </div>
-        <div className='relative ml-auto flex-1 md:grow-0'>
-          <Icon
-            name='search'
-            className='absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground'
-          />
-          <Input
-            type='search'
-            placeholder='Search...'
-            className='w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[320px]'
-          />
-        </div>
+        <SearchInput
+          initialValue={globalFilter ?? ''}
+          onDebouncedChange={setGlobalFilter}
+        />
       </div>
 
-      <div className='border rounded-md'>
+      <div className='rounded-md'>
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -106,24 +193,45 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      <div className='flex items-center justify-end space-x-2 py-4'>
-        <Button
-          variant='outline'
-          size='sm'
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant='outline'
-          size='sm'
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+      <Pagination className='justify-end'>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              onClick={() => table.previousPage()}
+              aria-disabled={!table.getCanPreviousPage()}
+              className={
+                !table.getCanPreviousPage()
+                  ? 'pointer-events-none opacity-50'
+                  : 'cursor-pointer'
+              }
+            />
+          </PaginationItem>
+
+          {Array.from({ length: table.getPageCount() }).map((_, index) => (
+            <PaginationItem key={index}>
+              <PaginationLink
+                onClick={() => table.setPageIndex(index)}
+                isActive={table.getState().pagination.pageIndex === index}
+                className='cursor-pointer'
+              >
+                {index + 1}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+
+          <PaginationItem>
+            <PaginationNext
+              onClick={() => table.nextPage()}
+              aria-disabled={!table.getCanNextPage()}
+              className={
+                !table.getCanNextPage()
+                  ? 'pointer-events-none opacity-50'
+                  : 'cursor-pointer'
+              }
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
     </div>
   );
 }

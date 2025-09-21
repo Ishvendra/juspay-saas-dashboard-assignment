@@ -39,3 +39,8 @@ export function truncateText(text: unknown, limit: number = 25): string {
 
   return text.slice(0, limit) + '...';
 }
+
+export const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+});

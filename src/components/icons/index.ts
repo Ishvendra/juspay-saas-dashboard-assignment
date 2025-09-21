@@ -26,6 +26,8 @@ import ArrowRightIcon from '@/assets/icons/arrow-right.svg';
 import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
 import ArrowRise from '@/assets/icons/arrow-rise.svg';
 import ArrowFall from '@/assets/icons/arrow-fall.svg';
+import ArrowUp from '@/assets/icons/arrow-up.svg';
+import ArrowDown from '@/assets/icons/arrow-down.svg';
 import CalendarIcon from '@/assets/icons/calendar.svg';
 import SortIcon from '@/assets/icons/sort.svg';
 
@@ -60,6 +62,8 @@ export const icons = {
   sort: SortIcon,
   arrowRise: ArrowRise,
   arrowFall: ArrowFall,
+  arrowUp: ArrowUp,
+  arrowDown: ArrowDown,
 };
 
 export type IconName = keyof typeof icons;

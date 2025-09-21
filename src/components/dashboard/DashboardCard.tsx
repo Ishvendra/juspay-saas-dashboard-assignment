@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 interface DashboardCardProps {
   title: React.ReactNode;
-  children?: React.ReactNode; //Todo: make children prop mandetory
+  children?: React.ReactNode;
   className?: string;
   isLoading?: boolean;
 }
@@ -25,7 +25,12 @@ export function DashboardCard({
   return (
     <motion.div
       variants={itemVariants}
-      className={cn('flex flex-col h-full', className)}
+      whileHover={{
+        borderRadius: 16,
+        boxShadow: 'var(--card-shadow)',
+      }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className={cn('flex flex-col h-full cursor-pointer', className)}
     >
       <Card className='flex flex-col flex-1 p-6 border-none rounded-2xl bg-primary-light h-full gap-4'>
         <CardHeader className='p-0'>

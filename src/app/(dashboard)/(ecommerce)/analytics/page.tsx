@@ -7,6 +7,9 @@ import { useLoadingSimulator } from '@/hooks/use-loading-simulator';
 import { motion } from 'framer-motion';
 import { ProjectionsChart } from '@/components/dashboard/ProjectionsChart';
 import { RevenueChart } from '@/components/dashboard/RevenueChart';
+import { TotalSalesPieChart } from '@/components/dashboard/TotalSalesPieChart';
+import { RevenueByLocation } from '@/components/dashboard/RevenueByLocation';
+import { TopProductsTable } from '@/components/dashboard/TopProductsTable';
 
 const revenueHeader = (
   <div className='flex items-center gap-4'>
@@ -55,26 +58,25 @@ export default function AnalyticsPage() {
           </DashboardCard>
         </div>
 
-        <div className='col-span-12 lg:col-span-9 h-[318px]'>
+        <div className='col-span-12 lg:col-span-9 h-[418px]'>
           <DashboardCard title={revenueHeader} isLoading={isLoading}>
             <RevenueChart />
           </DashboardCard>
         </div>
-        <div className='col-span-12 lg:col-span-3 lg:h-[318px]'>
+        <div className='col-span-12 lg:col-span-3 lg:h-[418px]'>
           <DashboardCard title='Revenue by Location' isLoading={isLoading}>
-            {/* Map chart will go here */}
+            <RevenueByLocation />
           </DashboardCard>
         </div>
 
-        {/* Row 3 */}
         <div className='col-span-12 lg:col-span-9 lg:h-[336px]'>
           <DashboardCard title='Top Selling Products' isLoading={isLoading}>
-            {/* Table will go here */}
+            <TopProductsTable />
           </DashboardCard>
         </div>
-        <div className='col-span-12 lg:col-span-3 lg:h-[344px]'>
+        <div className='col-span-12 lg:col-span-3 h-[344px]'>
           <DashboardCard title='Total Sales' isLoading={isLoading}>
-            {/* Pie chart will go here */}
+            <TotalSalesPieChart />
           </DashboardCard>
         </div>
       </motion.div>

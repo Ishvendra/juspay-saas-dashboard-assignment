@@ -30,11 +30,18 @@ export type Order = {
   id: string;
   user: {
     name: string;
-    avatarUrl: string;
+    avatarUrl: StaticImageData;
     initials: string;
   };
   project: string;
   address: string;
   date: string;
   status: OrderStatus;
+};
+
+export type Product = {
+  name: string;
+  price: number;
+  quantity: number;
+  amount: number;
 };

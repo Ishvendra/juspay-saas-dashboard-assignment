@@ -3,7 +3,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Order } from '@/types';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { OrderStatusBadge } from '@/components/dashboard/OrderStatusBadge';
 import { Icon } from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
@@ -13,6 +13,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import Image from 'next/image';
+import { IconButton } from '@/components/ui/icon-button';
 
 export const columns: ColumnDef<Order>[] = [
   {
@@ -36,15 +38,30 @@ export const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'id',
-    header: 'Order ID',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          className='-ml-3 text-muted-foreground font-normal'
+        >
+          Order ID
+          <Icon name='sort' className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: 'user',
-    header: 'User',
+    header: () => <p className='text-muted-foreground font-normal'>User</p>,
+    filterFn: (row, columnId, filterValue) => {
+      const userName = row.original.user.name.toLowerCase();
+      return userName.includes(filterValue.toLowerCase());
+    },
     cell: ({ row }) => (
       <div className='flex items-center gap-2'>
-        <Avatar className='h-8 w-8'>
-          <AvatarImage
+        <Avatar className='h-6 w-6'>
+          <Image
             src={row.original.user.avatarUrl}
             alt={row.original.user.name}
           />
@@ -56,15 +73,15 @@ export const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'project',
-    header: 'Project',
+    header: () => <p className='text-muted-foreground font-normal'>Project</p>,
   },
   {
     accessorKey: 'address',
-    header: 'Address',
+    header: () => <p className='text-muted-foreground font-normal'>Address</p>,
   },
   {
     accessorKey: 'date',
-    header: 'Date',
+    header: () => <p className='text-muted-foreground font-normal'>Date</p>,
     cell: ({ row }) => (
       <div className='flex items-center gap-2'>
         <Icon name='calendar' className='h-4 w-4 text-muted-foreground' />
@@ -74,7 +91,10 @@ export const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'status',
-    header: 'Status',
+    header: () => (
+      <p className='ml-2 text-muted-foreground font-normal'>Status</p>
+    ),
+    filterFn: 'arrIncludesSome',
     cell: ({ row }) => <OrderStatusBadge status={row.original.status} />,
   },
   {
@@ -85,13 +105,13 @@ export const columns: ColumnDef<Order>[] = [
       }
       return (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='h-8 w-8 p-0'>
-              <span className='sr-only'>Open menu</span>
-              <Icon name='chevronDown' className='h-4 w-4' />
-            </Button>
+          <DropdownMenuTrigger asChild className='h-4 flex items-baseline'>
+            <IconButton iconName='dots' />
           </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
+          <DropdownMenuContent
+            align='end'
+            className='bg-white-100 hover:cursor-pointer'
+          >
             <DropdownMenuItem>View Details</DropdownMenuItem>
             <DropdownMenuItem>Delete Order</DropdownMenuItem>
           </DropdownMenuContent>
