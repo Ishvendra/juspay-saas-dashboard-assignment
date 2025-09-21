@@ -19,6 +19,15 @@ import StarIcon from '@/assets/icons/star.svg';
 import SidebarIcon from '@/assets/icons/sidebar.svg';
 import BellIcon from '@/assets/icons/bell.svg';
 import HamburgerIcon from '@/assets/icons/hamburger.svg';
+import DotsIcon from '@/assets/icons/dots.svg';
+import FilterIcon from '@/assets/icons/filter.svg';
+import AddIcon from '@/assets/icons/add.svg';
+import ArrowRightIcon from '@/assets/icons/arrow-right.svg';
+import ArrowLeftIcon from '@/assets/icons/arrow-left.svg';
+import ArrowRise from '@/assets/icons/arrow-rise.svg';
+import ArrowFall from '@/assets/icons/arrow-fall.svg';
+import CalendarIcon from '@/assets/icons/calendar.svg';
+import SortIcon from '@/assets/icons/sort.svg';
 
 export const icons = {
   sun: SunIcon,
@@ -42,6 +51,15 @@ export const icons = {
   sidebar: SidebarIcon,
   bell: BellIcon,
   hamburger: HamburgerIcon,
+  dots: DotsIcon,
+  filter: FilterIcon,
+  add: AddIcon,
+  arrowRight: ArrowRightIcon,
+  arrowLeft: ArrowLeftIcon,
+  calendar: CalendarIcon,
+  sort: SortIcon,
+  arrowRise: ArrowRise,
+  arrowFall: ArrowFall,
 };
 
 export type IconName = keyof typeof icons;

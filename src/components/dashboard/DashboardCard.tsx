@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
 interface DashboardCardProps {
-  title: string;
+  title: React.ReactNode;
   children?: React.ReactNode; //Todo: make children prop mandetory
   className?: string;
   isLoading?: boolean;
@@ -25,13 +25,13 @@ export function DashboardCard({
   return (
     <motion.div
       variants={itemVariants}
-      className={cn('flex flex-col', className)}
+      className={cn('flex flex-col h-full', className)}
     >
-      <Card className='flex-1 p-6'>
-        <CardHeader className='p-0 mb-4'>
-          <CardTitle>{title}</CardTitle>
+      <Card className='flex flex-col flex-1 p-6 border-none rounded-2xl bg-primary-light h-full gap-4'>
+        <CardHeader className='p-0'>
+          <CardTitle className='text-sm'>{title}</CardTitle>
         </CardHeader>
-        <CardContent className='p-0 h-full'>
+        <CardContent className='p-0 flex-1 min-h-0'>
           {isLoading ? <Skeleton className='h-full w-full' /> : children}
         </CardContent>
       </Card>

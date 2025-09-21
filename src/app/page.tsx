@@ -1,10 +1,18 @@
 'use client';
-import { DashboardCard } from '@/components/dashboard/DashboardCard';
-import { PageLayout } from '@/components/layout/PageLayout';
-import { StatCardGrid } from '@/components/dashboard/StatCardGrid';
-import { useLoadingSimulator } from '@/hooks/use-loading-simulator';
-import { motion } from 'framer-motion';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function DashboardPage() {
-  return <>Dashboard</>;
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace('/analytics');
+  }, [router]);
+
+  return (
+    <div className='flex h-screen w-screen items-center justify-center'>
+      Redirecting to Analytics...
+    </div>
+  );
 }

@@ -1,4 +1,5 @@
-import { DashboardCard } from './DashboardCard';
+import { statCardsData } from '@/lib/mock-data';
+import { StatCard } from './StatCard';
 import { motion } from 'framer-motion';
 
 export function StatCardGrid({ isLoading }: { isLoading?: boolean }) {
@@ -7,24 +8,21 @@ export function StatCardGrid({ isLoading }: { isLoading?: boolean }) {
     visible: { opacity: 1, y: 0 },
   };
 
-  const statCards = [
-    { title: 'Total Revenue' },
-    { title: 'Subscriptions' },
-    { title: 'Sales' },
-    { title: 'Active Now' },
-  ];
-
   return (
     <motion.div
       variants={itemVariants}
-      className='grid grid-cols-2 grid-rows-2 gap-7'
+      className='grid grid-cols-2 grid-rows-2 max-sm:gap-4 gap-7'
     >
-      {statCards.map((card) => (
-        <DashboardCard
+      {statCardsData.map((card) => (
+        <StatCard
           key={card.title}
           title={card.title}
+          value={card.value}
+          change={card.change}
+          bgColor={card.bgColor}
+          textColor={card.textColor}
           isLoading={isLoading}
-        ></DashboardCard>
+        />
       ))}
     </motion.div>
   );

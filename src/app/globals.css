@@ -5,6 +5,7 @@
   :root {
     --radius: 0.625rem;
 
+    --black-fixed: #1c1c1c;
     --black-100: #1c1c1c;
     --black-80: #494949;
     --black-40: #a4a4a4;
@@ -28,6 +29,7 @@
     --secondary-purple-a: #0a8bfd;
     --secondary-purple-b: #c6c7f8;
     --secondary-blue-a: #a8c5da;
+    --secondary-blue-a-50: #a8c5da7e;
     --secondary-blue-b: #b1e3ff;
     --secondary-green-a: #a1e3cb;
     --secondary-green-b: #baedbd;
@@ -70,7 +72,7 @@
     --primary-blue: #e3f5ff;
     --primary-purple: #e5ecf6;
     --primary-purple-50: var(--white-5);
-    --primary-light: var(--white-5);
+    --primary-light: #282828;
 
     --background: var(--white-100);
     --foreground: var(--black-100);
@@ -111,13 +113,17 @@
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 
+  --color-black-fixed: var(--black-fixed);
   --color-primary-blue: var(--primary-blue);
+  --color-primary-purple: var(--primary-purple);
+  --color-primary-brand: var(--primary-brand);
   --color-secondary-purple-a: var(--secondary-purple-a);
   --color-secondary-blue-a: var(--secondary-blue-a);
+  --color-secondary-blue-a-50: var(--secondary-blue-a-50);
   --color-secondary-green-a: var(--secondary-green-a);
   --color-secondary-yellow: var(--secondary-yellow);
   --color-secondary-red: var(--secondary-red);
-  --color-primary-blue: var(--primary-blue);
+  --color-primary-light: var(--primary-light);
   --color-primary-blue-dark: var(--primary-blue-dark);
   --color-primary-blue-light: var(--primary-blue-light);
   --color-secondary-light: var(--secondary-light);

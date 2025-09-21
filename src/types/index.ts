@@ -1,5 +1,11 @@
 import { IconName } from '@/components/icons';
 import { StaticImageData } from 'next/image';
+export type OrderStatus =
+  | 'In Progress'
+  | 'Complete'
+  | 'Pending'
+  | 'Approved'
+  | 'Rejected';
 
 export type NavLink = {
   href?: string;
@@ -18,4 +24,17 @@ export type InfoListItemData = {
   avatarUrl?: StaticImageData | string;
   timestamp?: string;
   type?: 'bug' | 'newUser' | 'subscription';
+};
+
+export type Order = {
+  id: string;
+  user: {
+    name: string;
+    avatarUrl: string;
+    initials: string;
+  };
+  project: string;
+  address: string;
+  date: string;
+  status: OrderStatus;
 };
