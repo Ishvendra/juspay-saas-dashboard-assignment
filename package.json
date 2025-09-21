@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "jest --watch",
+    "test:ci": "jest",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",
@@ -48,6 +51,7 @@
     "jest": "^30.1.3",
     "jest-environment-jsdom": "^30.1.2",
     "tailwindcss": "^4",
+    "ts-jest": "^29.4.4",
     "tw-animate-css": "^1.3.8",
     "typescript": "^5"
   }
