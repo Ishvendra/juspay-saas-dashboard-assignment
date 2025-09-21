@@ -48,7 +48,7 @@ export function RevenueChart() {
           tickMargin={8}
           fontSize={14}
           tickFormatter={(value) => value.slice(0, 3)}
-          padding={{ left: 20, right: 20 }}
+          padding={{ left: 10, right: 10 }}
         />
         <YAxis
           tickLine={false}

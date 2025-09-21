@@ -16,15 +16,19 @@ const revenueHeader = (
     <span className='text-sm font-semibold'>Revenue</span>
     <span className='text-muted-foreground'>|</span>
     <div className='flex items-center gap-4 text-xs'>
-      <div className='flex items-center gap-2'>
-        <span className='h-2 w-2 rounded-full bg-primary-brand' />
-        <span className='font-normal'>Current Week</span>
-        <span>$58,211</span>
+      <div className='flex items-center sm:items-center gap-2'>
+        <span className='h-2 w-2 rounded-full bg-primary-brand flex-shrink-0' />
+        <div className='flex flex-col sm:flex-row sm:items-center sm:gap-2'>
+          <span className='font-normal text-xs'>Current Week</span>
+          <span className='text-xs'>$58,211</span>
+        </div>
       </div>
-      <div className='flex items-center gap-2 '>
-        <span className='h-2 w-2 rounded-full bg-secondary-blue-a' />
-        <span className='font-normal'>Previous Week</span>
-        <span>$68,768</span>
+      <div className='flex items-center sm:items-center gap-2'>
+        <span className='h-2 w-2 rounded-full bg-secondary-blue-a flex-shrink-0' />
+        <div className='flex flex-col sm:flex-row sm:items-center sm:gap-2'>
+          <span className='font-normal text-xs'>Previous Week</span>
+          <span className='text-xs'>$68,768</span>
+        </div>
       </div>
     </div>
   </div>
