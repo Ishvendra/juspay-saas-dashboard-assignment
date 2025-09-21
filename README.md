@@ -10,9 +10,11 @@ This project is a pixel-perfect implementation of a modern SaaS dashboard, built
 2.  [Features](#-features)
 3.  [Tech Stack & Architectural Decisions](#️-tech-stack--architectural-decisions)
 4.  [Getting Started](#-getting-started)
-5.  [Challenges & Solutions](#-challenges--solutions)
-6.  [Accessibility Features](#-accessibility-features)
-7.  [Known Limitations & Future Improvements](#-known-limitations--future-improvements)
+5.  [Folder Structure](#-folder-structure)
+6.  [Theme & Styling](#-theme-&-styling)
+7.  [Accessibility Features](#-accessibility-features)
+8.  [Challenges & Solutions](#-challenges--solutions)
+9.  [Known Limitations & Future Improvements](#-known-limitations--future-improvements)
 
 ---
 
